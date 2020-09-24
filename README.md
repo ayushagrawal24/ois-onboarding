@@ -84,6 +84,17 @@ Error: pg_config executable not found.
 ```
 An easy fix will be to install `libpq-dev` by doing `$ sudo apt-get install libpq-dev`. For more information about this error, [check here](https://stackoverflow.com/questions/11618898/pg-config-executable-not-found).
 
+You may also get the following error for a bunch of packages:
+
+```
+ERROR: Failed building wheel for cffi
+  Running setup.py clean for cffi
+Failed to build cffi
+```
+One fix may be to install `wheel` by using `$ pip install wheel`. If the error persists, it can often be fixed by removing the version specification in `requirements.txt` for the relevant packages. However, this may cause problems if some used methods are deprected or changed in the latest release. In that case, try specifying a version slightly newer than the one mentioned. 
+
+The `psycopg2` package requires PostgreSQL if it's not already installed on your machine. If installation still fails, try replacing it with `psycopg2-binary`. Luckily, this library is not needed directly but rather as a dependancy, and the website should run fine without it as long as all your other packagaes have been properly installed. One of the IT Officers had an issue with this library on macOS Catalina, and just left it out entirely with no issues.
+
 ### Add local settings
 Add this local.py file inside `/oissite/oissite/settings/`where production.py already exist. This local.py is added to the .gitignore so this file is not part of the project and **make sure is never goes to the server**.
 production.py contains all the app settings for the live website, which is different from the local settings.
